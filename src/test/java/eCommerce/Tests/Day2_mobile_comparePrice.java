@@ -15,20 +15,20 @@ import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 
+import eCommerce.Pages.Utils;
 import eCommerce.Pages.HomePage;
-import eCommerce.Pages.Mobile_Details_Xperia;
-import eCommerce.Pages.SearchMobile;
+import eCommerce.Pages.MobileDetailsPage_Xperia;
+import eCommerce.Pages.SearchMobilePage;
 
-public class Mobile_comparePrice {
+public class Day2_mobile_comparePrice {
 
 	WebDriver driver;
-	String url = "http://live.techpanda.org/";
-	String evidenceFolder = "..\\Guru99.eCommerce\\evidence\\Day 2\\";
 	File screenshotEvidence;
 	
-	HomePage homePage;
-	SearchMobile searchMobile;
-	Mobile_Details_Xperia mobileDetailsXperia;
+	Utils utils;
+	HomePage homepage;
+	SearchMobilePage searchmobile;
+	MobileDetailsPage_Xperia mobiledetailspage_xperia;
 	
 	
 	@BeforeSuite
@@ -56,7 +56,8 @@ public class Mobile_comparePrice {
 			}
 		}
 		
-		driver.get(url);
+		utils = new Utils(driver);
+		driver.get(utils.returnURL());
 		driver.manage().deleteAllCookies();
 		driver.manage().window().maximize();
 
@@ -68,25 +69,25 @@ public class Mobile_comparePrice {
 	public void comparePrice() throws IOException {
 		
 		//Go to mobile search
-		homePage = new HomePage(driver);
-		homePage.goto_searchMobile();
+		homepage = new HomePage(driver);
+		homepage.goto_searchMobile();
 		
 		//Evidence screenshot
 		screenshotEvidence = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-		FileUtils.copyFile(screenshotEvidence, new File(evidenceFolder + "price_MobilePage.png"));
+		FileUtils.copyFile(screenshotEvidence, new File(utils.returnEvidenceFolder() + "Day 2\\comparePrice_mobilePage.png"));
 		
 		//Save price to variable and go to detail page of Xperia
-		searchMobile = new SearchMobile(driver);
-		String assert_Price_Xperia = searchMobile.assert_Price_Xperia();
-		searchMobile.goto_Details_Xperia();
+		searchmobile = new SearchMobilePage(driver);
+		String assert_Price_Xperia = searchmobile.assert_Price_Xperia();
+		searchmobile.goto_Details_Xperia();
 		
 		//Assert stored variable with price on detail page
-		mobileDetailsXperia = new Mobile_Details_Xperia(driver);
-		Assert.assertEquals(assert_Price_Xperia, mobileDetailsXperia.assert_Xperia_Price());
+		mobiledetailspage_xperia = new MobileDetailsPage_Xperia(driver);
+		Assert.assertEquals(assert_Price_Xperia, mobiledetailspage_xperia.assert_ReturnXperiaPrice());
 		
 		//Evidence screenshot
 		screenshotEvidence = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-		FileUtils.copyFile(screenshotEvidence, new File(evidenceFolder + "price_MobileDetails.png"));
+		FileUtils.copyFile(screenshotEvidence, new File(utils.returnEvidenceFolder() + "Day 2\\comparePrice_mobileDetails.png"));
 
 	}
 	
@@ -94,7 +95,7 @@ public class Mobile_comparePrice {
 	@AfterMethod
 	public void returnHome() {
 		driver.manage().deleteAllCookies();
-		driver.get(url);
+		driver.get(utils.returnURL());
 	}
 	
 	

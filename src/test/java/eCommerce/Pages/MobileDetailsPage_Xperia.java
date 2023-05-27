@@ -6,18 +6,18 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 
-public class Mobile_Details_Xperia {
+public class MobileDetailsPage_Xperia {
 
 	//Elements
 	@FindBy(css = ".price") WebElement assertPrice;
 	
 	//Constructor
-	public Mobile_Details_Xperia (WebDriver driver) {
+	public MobileDetailsPage_Xperia (WebDriver driver) {
 		PageFactory.initElements(new AjaxElementLocatorFactory (driver, 15), this);
 	}
 	
 	//Actions
-	public String assert_Xperia_Price() {
+	public String assert_ReturnXperiaPrice() {
 		return assertPrice.getText();
 	}
 	

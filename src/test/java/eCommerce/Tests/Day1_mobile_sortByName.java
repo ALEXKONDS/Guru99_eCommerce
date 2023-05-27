@@ -15,20 +15,20 @@ import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 
+import eCommerce.Pages.Utils;
 import eCommerce.Pages.HomePage;
-import eCommerce.Pages.SearchMobile;
+import eCommerce.Pages.SearchMobilePage;
 
 
-public class Mobile_sortBy_Name {
+public class Day1_mobile_sortByName {
 
 	WebDriver driver;
-	String url = "http://live.techpanda.org/";
-	String evidenceFolder = "..\\Guru99.eCommerce\\evidence\\Day 1\\";
 	File screenshotEvidence;
 	
+	Utils utils;
 	HomePage homePage;
-	SearchMobile searchMobile;
-	
+	SearchMobilePage searchMobilePage;
+
 	
 	@BeforeSuite
 	public void startSuite() {
@@ -55,7 +55,8 @@ public class Mobile_sortBy_Name {
 			}
 		}
 		
-		driver.get(url);
+		utils = new Utils(driver);
+		driver.get(utils.returnURL());
 		driver.manage().deleteAllCookies();
 		driver.manage().window().maximize();
 
@@ -66,25 +67,25 @@ public class Mobile_sortBy_Name {
 	@Parameters ("browser")
 	public void mobile_sort_byName() throws IOException {
 		
-		//Assert page tittle is Home page, if ok declare homePage
+		//Assert page title is Home page, if ok declare homePage
 		Assert.assertEquals(driver.getTitle(), "Home page");
 		homePage = new HomePage(driver);		
 		
 		//Assert text is present in page, if ok click on mobile button
-		Assert.assertEquals(homePage.assertText(), "THIS IS DEMO SITE FOR   ");
+		Assert.assertEquals(homePage.assertText(), utils.returnHomePageDemoSiteMessage());
 		homePage.goto_searchMobile();
 		
-		//Assert page tittle is Mobile, if ok sort items by name
+		//Assert page title is Mobile, if ok sort items by name
 		Assert.assertEquals(driver.getTitle(), "Mobile");
-		searchMobile = new SearchMobile(driver);
-		searchMobile.sortBy_Name("http://live.techpanda.org/index.php/mobile.html?dir=asc&order=name");
+		searchMobilePage = new SearchMobilePage(driver);
+		searchMobilePage.sortBy_Name("http://live.techpanda.org/index.php/mobile.html?dir=asc&order=name");
 		
 		//Assert new url is sorting by name
 		Assert.assertEquals(driver.getCurrentUrl(), "http://live.techpanda.org/index.php/mobile.html?dir=asc&order=name");
 		
 		//Evidence screenshot
 		screenshotEvidence = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-		FileUtils.copyFile(screenshotEvidence, new File(evidenceFolder + "mobile_sortBy_Name.png"));	
+		FileUtils.copyFile(screenshotEvidence, new File(utils.returnEvidenceFolder() + "Day 1\\mobile_sortByName.png"));	
 
 	}
 	
@@ -92,7 +93,7 @@ public class Mobile_sortBy_Name {
 	@AfterMethod
 	public void returnHome() {
 		driver.manage().deleteAllCookies();
-		driver.get(url);
+		driver.get(utils.returnURL());
 	}
 	
 	

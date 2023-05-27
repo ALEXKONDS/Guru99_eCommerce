@@ -15,7 +15,7 @@
 	<test thread-count="5" name="FirefoxTests">
 	<parameter name="browser" value="Firefox"/>
 		<classes>
-			<class name="eCommerce.Tests.Day1_mobile_sortByName">
+			<class name="eCommerce.Tests.Day3_mobile_addMoreThanAvailable">
 			</class>
 		</classes>
 	</test>
@@ -31,3 +31,4 @@
  -->
 
 </suite> <!-- Suite -->
+
