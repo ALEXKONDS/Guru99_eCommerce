@@ -71,7 +71,7 @@ public class Day3_mobile_addMoreThanAvailable {
 		
 		//Go to mobile search
 		homepage = new HomePage(driver);
-		homepage.goto_searchMobile();
+		homepage.click_searchMobile();
 
 		//Click on Add to Cart button and go to checkout page
 		searchmobile = new SearchMobilePage(driver);

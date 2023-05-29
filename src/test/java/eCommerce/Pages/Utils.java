@@ -13,6 +13,7 @@ public class Utils {
 	String homepageDemoSiteMessage = "THIS IS DEMO SITE FOR   ";
 	String checkoutErrorMessage = "Some of the products cannot be ordered in requested quantity.";
 	String checkoutEmptyCartMessage = "SHOPPING CART IS EMPTY";
+	String compareProductsMessage = "COMPARE PRODUCTS";
 	
 	//Constructor
 	public Utils (WebDriver driver) {
@@ -39,6 +40,10 @@ public class Utils {
 	
 	public String returnCheckoutEmptyCartMessage() {
 		return checkoutEmptyCartMessage;
-	}	
+	}
+	
+	public String returnCompareProductsMessage() {
+		return compareProductsMessage;
+	}
 	
 }

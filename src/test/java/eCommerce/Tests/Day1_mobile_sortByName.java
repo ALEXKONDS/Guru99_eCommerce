@@ -72,8 +72,8 @@ public class Day1_mobile_sortByName {
 		homePage = new HomePage(driver);		
 		
 		//Assert text is present in page, if ok click on mobile button
-		Assert.assertEquals(homePage.assertText(), utils.returnHomePageDemoSiteMessage());
-		homePage.goto_searchMobile();
+		Assert.assertEquals(homePage.return_textAssert_Homepage(), utils.returnHomePageDemoSiteMessage());
+		homePage.click_searchMobile();
 		
 		//Assert page title is Mobile, if ok sort items by name
 		Assert.assertEquals(driver.getTitle(), "Mobile");

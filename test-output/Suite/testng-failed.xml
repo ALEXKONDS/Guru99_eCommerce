@@ -4,16 +4,16 @@
   <test thread-count="5" name="FirefoxTests(failed)">
     <parameter name="browser" value="Firefox"/>
     <classes>
-      <class name="eCommerce.Tests.Day3_mobile_addMoreThanAvailable">
+      <class name="eCommerce.Tests.Day4_mobile_compareItems">
         <methods>
-          <include name="startSuite"/>
-          <include name="returnHome"/>
-          <include name="setUp"/>
           <include name="addItemstoCart_TooMany"/>
-          <include name="tearDown"/>
+          <include name="setUp"/>
           <include name="endSuite"/>
+          <include name="returnHome"/>
+          <include name="tearDown"/>
+          <include name="startSuite"/>
         </methods>
-      </class> <!-- eCommerce.Tests.Day3_mobile_addMoreThanAvailable -->
+      </class> <!-- eCommerce.Tests.Day4_mobile_compareItems -->
     </classes>
   </test> <!-- FirefoxTests(failed) -->
 </suite> <!-- Failed suite [Suite] -->

@@ -3,15 +3,16 @@ Guru99 Live Selenium Webdriver Testing Project
 
 📝 Project Summary:
 
-This is a demo project provided by Guru99. It simulates Selenium WebDriver test cases for a demo eCommerce website every 24hs for 11 days. Uploading each test case to GitHub as part of my portfolio as a tester.
+This is a demo project provided by Guru99. It simulates Selenium WebDriver test cases for a demo eCommerce website every 24hs for 11 days. Uploading each test case to GitHub as part of my portfolio as a tester. While not required, I'm will be using a Page Object Model approach.
 
-💼 Tasks:
+📆 Tasks:
 
 Each daily task is uploaded in the tasks folder as a .png file
 
 💼 Evidence:
 
 While not required for the project, screenshot evidence is included in the evidence folder, sorted by day
+
 
 -----
 
@@ -77,4 +78,3 @@ Test Steps:
 Validation requirements:
 1. On clicking update button an error is shown: 'The requested quantity for "Sony Xperia" is not available'
 2. On clicking empty cart button, a message 'SHOPPING CART IS EMPTY' is shown
-

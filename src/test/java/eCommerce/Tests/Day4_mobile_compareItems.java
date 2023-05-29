@@ -1,15 +1,19 @@
 package eCommerce.Tests;
 
 import java.io.IOException;
+import java.util.Set;
 
 import org.testng.Assert;
 import org.testng.annotations.*;
+
+import com.github.javafaker.Faker;
 
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.apache.commons.io.FileUtils;
 
@@ -17,19 +21,22 @@ import java.io.File;
 
 import eCommerce.Pages.Utils;
 import eCommerce.Pages.HomePage;
-import eCommerce.Pages.MobileDetailsPage_Xperia;
+import eCommerce.Pages.ProductComparePage;
 import eCommerce.Pages.SearchMobilePage;
+import eCommerce.Pages.CheckoutPage;
 
-public class Day2_mobile_comparePrice {
-
+public class Day4_mobile_compareItems {
+	
 	WebDriver driver;
 	File screenshotEvidence;
+	Faker faker = new Faker();
 	
 	Utils utils;
 	HomePage homepage;
 	SearchMobilePage searchmobile;
-	MobileDetailsPage_Xperia mobiledetailspage_xperia;
-	
+	CheckoutPage checkoutpage;
+	ProductComparePage productcompare;
+			
 	
 	@BeforeSuite
 	public void startSuite() {
@@ -60,35 +67,54 @@ public class Day2_mobile_comparePrice {
 		driver.get(utils.returnURL());
 		driver.manage().deleteAllCookies();
 		driver.manage().window().maximize();
-
 	}
 	
 	
 	@Test
-	@Parameters ("browser")
-	public void comparePrice() throws IOException {
+	public void addItemstoCart_TooMany() throws IOException, InterruptedException {
 		
 		//Go to mobile search
 		homepage = new HomePage(driver);
 		homepage.click_searchMobile();
 		
-		//Evidence screenshot
-		screenshotEvidence = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-		FileUtils.copyFile(screenshotEvidence, new File(utils.returnEvidenceFolder() + "Day 2\\comparePrice_mobilePage.png"));
-		
-		//Save price to variable and go to detail page of Xperia
 		searchmobile = new SearchMobilePage(driver);
-		String assert_Price_Xperia = searchmobile.assert_Price_Xperia();
-		searchmobile.goto_Details_Xperia();
+		//Click on Add to Compare
+		searchmobile.click_AddToCompare_SonyXperia();
+		searchmobile.click_AddToCompare_AppleiPhone();
 		
-		//Assert stored variable with price on detail page
-		mobiledetailspage_xperia = new MobileDetailsPage_Xperia(driver);
-		Assert.assertEquals(assert_Price_Xperia, mobiledetailspage_xperia.assert_ReturnXperiaPrice());
 		
-		//Evidence screenshot
-		screenshotEvidence = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-		FileUtils.copyFile(screenshotEvidence, new File(utils.returnEvidenceFolder() + "Day 2\\comparePrice_mobileDetails.png"));
-
+		//Store main window in variable
+		String mainHandle = driver.getWindowHandle();
+		
+		//Click on Compare button
+		driver.findElement(By.cssSelector("button[title='Compare']")).click();
+		
+		Set<String> allHandles = driver.getWindowHandles();
+		
+		for (String windowHandle : allHandles) {
+			if (mainHandle.equals(windowHandle)) {
+				
+			} else {
+				//Switch to compare window
+				driver.switchTo().window(windowHandle);
+				
+				//Assert: COMPARE PRODUCTS text is present
+				productcompare = new ProductComparePage(driver);
+				Assert.assertEquals(productcompare.return_textAssert_Compare(), utils.returnCompareProductsMessage());
+				
+				
+				//Screenshot: New window comparing items
+				Thread.sleep(3000);
+				screenshotEvidence = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+				FileUtils.copyFile(screenshotEvidence, new File(utils.returnEvidenceFolder() + "Day 4\\compareItems.png"));
+				
+				//Click on close window
+				driver.findElement(By.xpath("/html/body/div/div[2]/button")).click();
+				
+				//Return to main window
+				driver.switchTo().window(mainHandle);
+			}
+		}
 	}
 	
 	
@@ -110,4 +136,7 @@ public class Day2_mobile_comparePrice {
 		System.out.println("Test suite has ended!");
 	}
 	
-}
+}	
+
+	
+
