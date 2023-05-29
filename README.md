@@ -78,3 +78,26 @@ Test Steps:
 Validation requirements:
 1. On clicking update button an error is shown: 'The requested quantity for "Sony Xperia" is not available'
 2. On clicking empty cart button, a message 'SHOPPING CART IS EMPTY' is shown
+
+-----
+
+🕒 Day 4:
+
+Test Scenario:
+- Verify that you are able to compare two products
+
+Test Steps:
+1. Go to http://live.techpanda.org/
+2. Click on 'MOBILE' menu
+3. In the mobile products list, click on 'Add to Compare' for 2 mobiles
+4. Click on 'COMPARE' button
+5. Verify the pop-up window and check that the products are reflected in it
+6. Close the pop-up window
+
+Test data:
+- Phone 1: Sony Xperia
+- Phone 2: iPhone
+
+Validation requirements:
+1. A pop-up window opens with heading as 'COMPARE PRODUCTS' and the selected products are present in it
+2. Pop-up window is closed
